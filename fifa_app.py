@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import time
+import os
 
 # 1. Page Config
 st.set_page_config(page_title="FIFA Player Explorer", page_icon="⚽", layout="wide")
@@ -23,10 +24,17 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. Load Data with Spinner
+# 3. Load Data with Spinner (Optimized version)
 with st.spinner('Loading FIFA player data... ⚡'):
     time.sleep(2)
-    df = pd.read_csv('male_players (legacy).csv')
+
+    # Drop heavy/unneeded columns
+    cols_to_exclude = ['player_url', 'real_face', 'body_type', 'team_jersey_number']
+    df_full = pd.read_csv('male_players (legacy).csv', low_memory=True, usecols=lambda col: col not in cols_to_exclude)
+
+    # Sample for performance
+    df = df_full.sample(n=1000, random_state=42)
+
 
 # 4. Title
 st.title("⚽ FIFA Player Explorer")
@@ -119,13 +127,5 @@ elif page == "🏟️ Explore by Club":
                 <b style="color:white;">{row['short_name']}</b> | Overall: {row['overall']} | Age: {row['age']}
             </div>
         """, unsafe_allow_html=True)
-import os
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    # Use streamlit to run the app
-    from streamlit.web import cli as stcli
-    import sys
-    sys.argv = ["streamlit", "run", "fifa_app.py", "--server.port", str(port), "--server.address", "0.0.0.0"]
-    sys.exit(stcli.main())
 
