@@ -119,3 +119,13 @@ elif page == "🏟️ Explore by Club":
                 <b style="color:white;">{row['short_name']}</b> | Overall: {row['overall']} | Age: {row['age']}
             </div>
         """, unsafe_allow_html=True)
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    # Use streamlit to run the app
+    from streamlit.web import cli as stcli
+    import sys
+    sys.argv = ["streamlit", "run", "fifa_app.py", "--server.port", str(port), "--server.address", "0.0.0.0"]
+    sys.exit(stcli.main())
+
