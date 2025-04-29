@@ -46,6 +46,7 @@ page = st.sidebar.selectbox("Navigate", ["🏠 Home", "🔎 Explore Player", "�
 if page == "🏠 Home":
     st.image("https://cdn.wallpapersafari.com/71/93/zTgNtx.jpg", use_container_width=True)
 
+
     st.markdown("## Welcome to FIFA Explorer App ⚡\nExplore Players, Clubs and More!")
 
 # 7. Player Explorer Page
@@ -58,7 +59,10 @@ elif page == "🔎 Explore Player":
 
     # Player Image
     img_url = player_data['player_face_url']
+    if pd.isna(img_url) or img_url.strip() == '' or img_url == '0':
+        img_url = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     st.image(img_url, width=200)
+
 
     # Badge
     overall = player_data['overall']
