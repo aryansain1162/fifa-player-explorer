@@ -44,7 +44,8 @@ page = st.sidebar.selectbox("Navigate", ["🏠 Home", "🔎 Explore Player", "�
 
 # 6. Home Page
 if page == "🏠 Home":
-    st.image("https://cdn.wallpapersafari.com/71/93/zTgNtx.jpg", use_column_width=True)
+    st.image("https://cdn.wallpapersafari.com/71/93/zTgNtx.jpg", use_container_width=True)
+
     st.markdown("## Welcome to FIFA Explorer App ⚡\nExplore Players, Clubs and More!")
 
 # 7. Player Explorer Page
